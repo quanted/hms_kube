@@ -1,4 +1,4 @@
-FROM daskdev/dask:2022.1.1-py3.9
+FROM continuumio/miniconda3:4.10.3
 
 RUN apt-get update --allow-releaseinfo-change -y
 RUN apt-get upgrade --fix-missing -y
