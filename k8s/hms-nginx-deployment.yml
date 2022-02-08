@@ -25,7 +25,7 @@ spec:
         - containerPort: 443
         volumeMounts:
         - mountPath: /src/collected_static
-          name: vb-collected-static
+          name: collected-static
       restartPolicy: Always
       volumes:
       - name: collected-static

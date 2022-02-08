@@ -1,4 +1,4 @@
-piVersion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -22,18 +22,6 @@ spec:
         envFrom:
           - configMapRef:
               name: hms-config
-#        readinessProbe:
-#          tcpSocket:
-#            port: 8080
-#          initialDelaySeconds: 5
-#          periodSeconds: 10
-#          timeoutSeconds: 10
-#        livenessProbe:
-#          tcpSocket:
-#            port: 8080
-#          initialDelaySeconds: 15
-#          periodSeconds: 30
-#          timeoutSeconds: 10
         resources:
           requests:
             memory: "512Mi"
@@ -45,20 +33,6 @@ spec:
         ports:
         - containerPort: 8080
           protocol: TCP
-        volumeMounts:
-        - mountPath: /src/app-data
-          name: app-data
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
-      volumes:
-      - name: app-data
-        persistentVolumeClaim:
-          claimName: app-data-pvolume-claim1
-#      volumes:
-              #- name: app-data
-              # hostPath:
-              #path: /host/app-data
-            #- name: flask-code
-            #hostPath:
-            #path: /host/flask-code
