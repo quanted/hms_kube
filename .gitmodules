@@ -1,0 +1,12 @@
+[submodule "hms_app"]
+	path = hms_app
+	url = https://github.com/quanted/hms_app.git
+[submodule "hms_angular"]
+	path = hms_angular
+	url = https://github.com/quanted/hms_angular.git
+[submodule "hms_flask"]
+	path = hms_flask
+	url = https://github.com/quanted/hms_flask.git
+[submodule "hms"]
+	path = hms
+	url = https://github.com/quanted/hms.git

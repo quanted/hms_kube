@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hms-django
+  name: hms-django
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hms-django
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: hms-django
+    spec:
+      containers:
+      - envFrom:
+          - configMapRef:
+              name: hms-config
+        image: dbsmith88/hms-django:dev-kube
+        imagePullPolicy: Always
+        name: hms-django
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /src/hms_app/collected_static
+          name: collected-static
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      volumes:
+        - name: collected-static
+          hostPath:
+            path: /D//data/collected-static
+#      volumes:
+#      - name: collected-static
+#        persistentVolumeClaim:
+#          claimName: collected-static-pvolume-claim1

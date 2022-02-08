@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  generation: 2
+  labels:
+    app: hms-dask-scheduler
+  name: hms-dask-scheduler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hms-dask-scheduler
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: hms-dask-scheduler
+    spec:
+      containers:
+      - args:
+        - conda
+        - run
+        - -n
+        - pyenv
+        - --no-capture-output
+        - dask-scheduler
+        image: dbsmith88/hms-dask:latest
+        imagePullPolicy: Always
+#        readinessProbe:
+#          tcpSocket:
+#            port: 8786
+#          initialDelaySeconds: 5
+#          periodSeconds: 10
+#          timeoutSeconds: 10
+#        livenessProbe:
+#          tcpSocket:
+#            port: 8786
+#          initialDelaySeconds: 15
+#          periodSeconds: 30
+#          timeoutSeconds: 10
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        name: hms-dask-scheduler
+        ports:
+        - containerPort: 8786
+          protocol: TCP
+        - containerPort: 8787
+          protocol: TCP
+      hostname: hms-dask-scheduler
+      restartPolicy: Always

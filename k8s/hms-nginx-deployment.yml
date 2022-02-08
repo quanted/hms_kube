@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hms-nginx
+  name: hms-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hms-nginx
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: hms-nginx
+    spec:
+      containers:
+      - image: dbsmith88/hms-nginx
+        imagePullPolicy: Always
+        name: nginx
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        volumeMounts:
+        - mountPath: /src/collected_static
+          name: vb-collected-static
+      restartPolicy: Always
+      volumes:
+      - name: collected-static
+        hostPath:
+          path: /D//data/collected-static
+#      - name: vb-collected-static
+#        persistentVolumeClaim:
+#          claimName: vb-collected-static-pvc

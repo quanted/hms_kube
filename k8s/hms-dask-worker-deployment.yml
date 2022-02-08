@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hms-dask-worker
+  name: hms-dask-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hms-dask-worker
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: hms-dask-worker
+    spec:
+      containers:
+      - args:
+        - conda
+        - run
+        - -n
+        - pyenv
+        - --no-capture-output
+        - dask-worker
+        - hms-dask-scheduler:8786
+        image: dbsmith88/hms-dask:latest
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: hms-config
+        resources:
+          requests:
+            memory: "1Mi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "2000m"
+        name: hms-dask-worker
+      hostname: hms-dask-worker
+      restartPolicy: Always
+      schedulerName: default-scheduler
