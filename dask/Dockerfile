@@ -10,7 +10,7 @@ WORKDIR /src/
 RUN cd /src/ && git clone -b dev-kube https://github.com/quanted/hms_flask.git
 
 RUN conda create --name pyenv python=3.9
-
+RUN conda config --add channels conda-forge
 RUN conda run -n pyenv --no-capture-output conda install --file /src/hms_flask/requirements.txt
 RUN conda run -n pyenv --no-capture-output python --version
 
