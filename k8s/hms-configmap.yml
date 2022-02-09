@@ -11,8 +11,9 @@ data:
   DASK_SCHEDULER: "hms-dask-scheduler:8786"
   HMS_BACKEND: "http://hms-dotnetcore"
   HMS_AQUATOX_WEBAPP: "True"
-  FLASK_SERVER: "http:\\qed-nginx:7777"
+  FLASK_SERVER: "http://hms-nginx:7777"
   GOOGLE_API_KEY: "AIzaSyD7jDvsUDhtofz6LZC2nq8MQokZacOf6Ms"
+  UBERTOOL_REST_SERVER: "http://hms-nginx:7777"
 
 
 
