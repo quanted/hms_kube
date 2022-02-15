@@ -20,7 +20,7 @@ spec:
       - envFrom:
           - configMapRef:
               name: hms-config
-        image: dbsmith88/hms_dotnetcore:latest
+        image: ghcr.io/quanted/hms:dev
         imagePullPolicy: Always
         name: hms-dotnetcore
         readinessProbe:
