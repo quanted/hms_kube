@@ -5,7 +5,7 @@ metadata:
     app: hms-dask-worker
   name: hms-dask-worker
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: hms-dask-worker
@@ -25,7 +25,7 @@ spec:
         - --no-capture-output
         - dask-worker
         - hms-dask-scheduler:8786
-        image: dbsmith88/hms-dask:latest
+        image: ghcr.io/quanted/hms-dask:main
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
@@ -36,7 +36,7 @@ spec:
             cpu: "500m"
           limits:
             memory: "2Gi"
-            cpu: "2000m"
+            cpu: "1000m"
         name: hms-dask-worker
       hostname: hms-dask-worker
       restartPolicy: Always

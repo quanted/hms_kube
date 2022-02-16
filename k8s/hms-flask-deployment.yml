@@ -17,7 +17,7 @@ spec:
         app: hms-flask
     spec:
       containers:
-      - image: dbsmith88/hms-flask:dev-kube
+      - image: ghcr.io/quanted/hms_flask:dev-kube
         imagePullPolicy: Always
         envFrom:
           - configMapRef:

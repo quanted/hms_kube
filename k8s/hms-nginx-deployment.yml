@@ -17,7 +17,7 @@ spec:
         app: hms-nginx
     spec:
       containers:
-      - image: dbsmith88/hms-nginx
+      - image: ghcr.io/quanted/hms-nginx:main
         imagePullPolicy: Always
         name: nginx
         ports:
