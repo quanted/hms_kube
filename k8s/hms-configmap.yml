@@ -15,6 +15,7 @@ data:
   GOOGLE_API_KEY: "AIzaSyD7jDvsUDhtofz6LZC2nq8MQokZacOf6Ms"
   MONGODB_HOST: "hms-mongodb:27017"
   MONGODB: "hms-mongodb"
+  NWM_2_1: "True"
 
 
 
