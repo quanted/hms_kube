@@ -2,19 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: hms-dotnetcore
-  name: hms-dotnetcore
+    app: hms-dotnet
+  name: hms-dotnet
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hms-dotnetcore
+      app: hms-dotnet
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: hms-dotnetcore
+        app: hms-dotnet
     spec:
       containers:
       - envFrom:
@@ -22,7 +22,7 @@ spec:
               name: hms-config
         image: ghcr.io/quanted/hms:dev
         imagePullPolicy: Always
-        name: hms-dotnetcore
+        name: hms-dotnet
         readinessProbe:
           tcpSocket:
             port: 80
@@ -40,7 +40,7 @@ spec:
             protocol: TCP
         volumeMounts:
         - mountPath: /app/App_Data
-          name: hms-dotnetcore-appdata
+          name: hms-dotnet-appdata
         resources:
           requests:
             memory: "512Mi"
@@ -54,9 +54,9 @@ spec:
       restartPolicy: Always
       schedulerName: default-scheduler
       volumes:
-        - name: hms-dotnetcore-appdata
+        - name: hms-dotnet-appdata
           hostPath:
             path: /D//data/hms/app-data
-#       - name: hms-dotnetcore-appdata
+#       - name: hms-dotnet-appdata
 #         persistentVolumeClaim:
 #           claimName: hms-dotnetcore-appdata-pvolume-claim1

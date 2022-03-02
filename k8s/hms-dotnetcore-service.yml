@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hms-dotnetcore
+  name: hms-dotnet
 spec:
   ports:
   - port: 80
     protocol: TCP
     targetPort: 80
   selector:
-    app: hms-dotnetcore
+    app: hms-dotnet
   type: ClusterIP

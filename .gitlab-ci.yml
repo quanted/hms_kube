@@ -1,0 +1,194 @@
+stages:
+  - Image Build
+  - Deployment
+  - Restart Pods
+  - Image Scan
+
+include:
+  - project: 'DSO/DASTScanner'
+    file: '.gitlab-ci.yml'
+  - remote: 'https://gitlab.com/prismacloud-public/shift-left/extension/-/raw/master/.pcs.gitlab-ci.yml'
+
+
+CopyDevImages:
+  stage: Image Build
+  tags:
+    - devsecops-instance
+  when: manual
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [ "" ]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - mkdir -p /workspace
+    # HMS .NET5 image
+    - echo "FROM ghcr.io/quanted/hms:dev" > /workspace/Dockerfile
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_dotnet:$CI_COMMIT_REF_NAME
+    # HMS django image
+    - echo "FROM ghcr.io/quanted/hms_app:dev-kube" > /workspace/Dockerfile
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_django:$CI_COMMIT_REF_NAME
+    # HMS flask image
+    - echo "FROM ghcr.io/quanted/hms_flask:dev-kube" > /workspace/Dockerfile
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_flask:$CI_COMMIT_REF_NAME
+    # HMS dask image
+    - echo "FROM ghcr.io/quanted/hms-dask:main" > /workspace/Dockerfile
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_dask:$CI_COMMIT_REF_NAME
+    # HMS nginx image
+    - echo "FROM ghcr.io/quanted/hms-nginx:main" > /workspace/Dockerfile
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_nginx:$CI_COMMIT_REF_NAME
+    # HMS mongo image
+    - echo "FROM ghcr.io/quanted/hms-mongo:main" > /workspace/Dockerfile
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_mongo:$CI_COMMIT_REF_NAME
+  environment:
+    name: dev
+    url: http://qed.devsecops-dev.aws.epa.gov
+    kubernetes:
+      namespace: qed-kube-scripts-79-dev
+
+ApplyManifests:
+  stage: Deployment
+  tags:
+    - devsecops-instance
+  when: manual
+  image: dtzar/helm-kubectl
+  script:
+    - kubectl config set-cluster "$KUBECTL_DEV_CLUSTER" --server="$KUBE_URL"
+    - kubectl config set-cluster "$KUBECTL_DEV_CLUSTER" --certificate-authority=$KUBE_CA_PEM_FILE --embed-certs=true
+    - kubectl config set-credentials gitlab --token="$KUBE_TOKEN"
+    - kubectl config set-context default --cluster="$KUBECTL_DEV_CLUSTER" --user=gitlab --namespace="$KUBE_NAMESPACE"
+    - kubectl config use-context default
+    - kubectl apply -f k8s/
+  environment:
+    name: dev
+    url: http://qed.devsecops-dev.aws.epa.gov
+    kubernetes:
+      namespace: qed-kube-scripts-79-dev
+
+ScalePods:
+  stage: Recreate-Pod
+  tags:
+    - devsecops-instance
+  when: manual
+  image: dtzar/helm-kubectl
+  script:
+    - kubectl config set-cluster "$KUBECTL_DEV_CLUSTER" --server="$KUBE_URL"
+    - kubectl config set-cluster "$KUBECTL_DEV_CLUSTER" --certificate-authority=$KUBE_CA_PEM_FILE --embed-certs=true
+    - kubectl config set-credentials gitlab --token="$KUBE_TOKEN"
+    - kubectl config set-context default --cluster="$KUBECTL_DEV_CLUSTER" --user=gitlab --namespace="$KUBE_NAMESPACE"
+    - kubectl config use-context default
+    - kubectl scale deployment hms-django --replicas=0
+    - kubectl scale deployment hms-django --replicas=1
+    - kubectl scale deployment hms-flask --replicas=0
+    - kubectl scale deployment hms-flask --replicas=1
+    - kubectl scale deployment hms-dask-worker --replicas=0
+    - kubectl scale deployment hms-dask-worker --replicas=3
+    - kubectl scale deployment hms-dotnet --replicas=0
+    - kubectl scale deployment hms-dotnet --replicas=1
+  environment:
+    name: dev
+    url: http://qed.devsecops-dev.aws.epa.gov
+    kubernetes:
+      namespace: qed-kube-scripts-79-dev
+
+PrismaScanDotnet:
+  stage: Image Scan
+  extends:
+    - .pcs_compute_scan
+  tags:
+    - twistcli
+  when: manual
+  allow_failure: false
+  variables:
+      hms_dotnet_image: "registry.epa.gov/qed/hms_kube/hms_dotnet:dev-gl"
+      prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+      GIT_STRATEGY: clone
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $hms_dotnet_image
+    - ./image_scan.sh
+
+PrismaScanDjango:
+  stage: Image Scan
+  extends:
+    - .pcs_compute_scan
+  tags:
+    - twistcli
+  when: manual
+  allow_failure: false
+  variables:
+      hms_django_image: "registry.epa.gov/qed/hms_kube/hms_django:dev-gl"
+      prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+      GIT_STRATEGY: clone
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $hms_django_image
+    - ./image_scan.sh
+
+PrismaScanFlask:
+  stage: Image Scan
+  extends:
+    - .pcs_compute_scan
+  tags:
+    - twistcli
+  when: manual
+  allow_failure: false
+  variables:
+      hms_flask_image: "registry.epa.gov/qed/hms_kube/hms_flask:dev-gl"
+      prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+      GIT_STRATEGY: clone
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $hms_flask_image
+    - ./image_scan.sh
+
+PrismaScanDask:
+  stage: Image Scan
+  extends:
+    - .pcs_compute_scan
+  tags:
+    - twistcli
+  when: manual
+  allow_failure: false
+  variables:
+      hms_dask_image: "registry.epa.gov/qed/hms_kube/hms_dask:dev-gl"
+      prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+      GIT_STRATEGY: clone
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $hms_dask_image
+    - ./image_scan.sh
+
+PrismaScanNginx:
+  stage: Image Scan
+  extends:
+    - .pcs_compute_scan
+  tags:
+    - twistcli
+  when: manual
+  allow_failure: false
+  variables:
+      hms_nginx_image: "registry.epa.gov/qed/hms_kube/hms_nginx:dev-gl"
+      prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+      GIT_STRATEGY: clone
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $hms_nginx_image
+    - ./image_scan.sh
+
+PrismaScanMongo:
+  stage: Image Scan
+  extends:
+    - .pcs_compute_scan
+  tags:
+    - twistcli
+  when: manual
+  allow_failure: false
+  variables:
+      hms_mongo_image: "registry.epa.gov/qed/hms_kube/hms_mongo:dev-gl"
+      prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+      GIT_STRATEGY: clone
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $hms_mongo_image
+    - ./image_scan.sh

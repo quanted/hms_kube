@@ -9,13 +9,13 @@ data:
   HMS_LOCAL: "False"
   DJANGO_SETTINGS_MODULE: "settings"
   DASK_SCHEDULER: "hms-dask-scheduler:8786"
-  HMS_BACKEND: "http://hms-dotnetcore:80/"
+  HMS_BACKEND: "http://hms-dotnet:80/"
   HMS_AQUATOX_WEBAPP: "True"
   FLASK_SERVER: "http://hms-nginx:7777"
   GOOGLE_API_KEY: "AIzaSyD7jDvsUDhtofz6LZC2nq8MQokZacOf6Ms"
   MONGODB_HOST: "hms-mongodb:27017"
   MONGODB: "hms-mongodb"
-  NWM_2_1: "True"
+  NWM_21: "True"
 
 
 
