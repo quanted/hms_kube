@@ -5,6 +5,11 @@ metadata:
   labels:
     app: hms-dask-scheduler
   name: hms-dask-scheduler
+  namespace: hms-kube
+  annotations:
+    app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
+    app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}
+    eks.amazonaws.com/compute-type: fargate
 spec:
   replicas: 1
   selector:
@@ -23,9 +28,20 @@ spec:
         - pyenv
         - --no-capture-output
         - dask-scheduler
-#        image: ghcr.io/quanted/hms-dask:main
-        image: hms-dask-test-01
-        imagePullPolicy: Never
+        image: registry.epa.gov/qed/hms_kube/hms_dask:dev-gl
+        imagePullPolicy: Always
+        readinessProbe:
+          tcpSocket:
+            port: 8786
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 8786
+          initialDelaySeconds: 15
+          periodSeconds: 30
+          timeoutSeconds: 10
         resources:
           requests:
             memory: "256Mi"

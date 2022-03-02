@@ -4,6 +4,11 @@ metadata:
   labels:
     app: hms-django
   name: hms-django
+  namespace: hms-kube
+    annotations:
+      app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
+      app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}
+      eks.amazonaws.com/compute-type: fargate
 spec:
   replicas: 1
   selector:
@@ -20,9 +25,26 @@ spec:
       - envFrom:
           - configMapRef:
               name: hms-config
-        image: ghcr.io/quanted/hms_app:dev-kube
+        image: registry.epa.gov/qed/hms_kube/hms_django:dev-gl
         imagePullPolicy: Always
         name: hms-django
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 120
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 120
+          periodSeconds: 30
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
         ports:
         - containerPort: 8080
           protocol: TCP
@@ -32,10 +54,6 @@ spec:
       restartPolicy: Always
       schedulerName: default-scheduler
       volumes:
-        - name: collected-static
-          hostPath:
-            path: /D//data/collected-static
-#      volumes:
-#      - name: collected-static
-#        persistentVolumeClaim:
-#          claimName: collected-static-pvolume-claim1
+      - name: collected-static
+        persistentVolumeClaim:
+          claimName: collected-static-pvolume-claim1

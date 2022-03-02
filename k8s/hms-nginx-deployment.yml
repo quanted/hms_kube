@@ -4,6 +4,11 @@ metadata:
   labels:
     app: hms-nginx
   name: hms-nginx
+  namespace: hms-kube
+  annotations:
+    app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
+    app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}
+    eks.amazonaws.com/compute-type: fargate
 spec:
   replicas: 1
   selector:
@@ -17,9 +22,26 @@ spec:
         app: hms-nginx
     spec:
       containers:
-      - image: ghcr.io/quanted/hms-nginx:main
+      - image: registry.epa.gov/qed/hms_kube/hms_nginx:dev-gl
         imagePullPolicy: Always
         name: nginx
+        readinessProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 30
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
         ports:
         - containerPort: 80
         - containerPort: 443
@@ -29,8 +51,5 @@ spec:
       restartPolicy: Always
       volumes:
       - name: collected-static
-        hostPath:
-          path: /D//data/collected-static
-#      - name: vb-collected-static
-#        persistentVolumeClaim:
-#          claimName: vb-collected-static-pvc
+        persistentVolumeClaim:
+          claimName: collected-static-pvolume-claim1

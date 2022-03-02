@@ -4,6 +4,7 @@ metadata:
   labels:
     app: hms-mongodb
   name: hms-mongodb
+  namespace: hms-kube
 spec:
   podManagementPolicy: OrderedReady
   replicas: 1
@@ -17,33 +18,34 @@ spec:
         app: hms-mongodb
     spec:
       containers:
-      - image: mongo:latest
+      - image: registry.epa.gov/qed/hms_kube/hms_mongo:dev-gl
         imagePullPolicy: Always
-#        resources:
-#          requests:
-#            memory: "512Mi"
-#            cpu: "500m"
-#          limits:
-#            memory: "1Gi"
-#            cpu: "1000m"
+        command: ['mongod', '--bind_ip_all']
         name: hms-mongodb
-#        readinessProbe:
-#          exec:
-#            command:
-#            - ls
-#            - /
-#          initialDelaySeconds: 5
-#          periodSeconds: 10
-#        livenessProbe:
-#          exec:
-#            command:
-#            - ls
-#            - /
-#          initialDelaySeconds: 15
-#          periodSeconds: 30
+        readinessProbe:
+          exec:
+            command:
+            - ls
+            - /
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          exec:
+            command:
+            - ls
+            - /
+          initialDelaySeconds: 15
+          periodSeconds: 30
         ports:
         - containerPort: 27017
           protocol: TCP
+        volumeMounts:
+          - mountPath: /data/db
+            name: mongodb-pvolume
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
+      volumes:
+        - name: mongodb-pvolume
+          persistentVolumeClaim:
+            claimName: mongodb-pvolume-claim1

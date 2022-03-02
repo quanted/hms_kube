@@ -4,6 +4,11 @@ metadata:
   labels:
     app: hms-flask
   name: hms-flask
+  namespace: hms-kube
+  annotations:
+    app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
+    app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}
+    eks.amazonaws.com/compute-type: fargate
 spec:
   replicas: 1
   selector:
@@ -17,7 +22,7 @@ spec:
         app: hms-flask
     spec:
       containers:
-      - image: ghcr.io/quanted/hms_flask:dev-kube
+      - image: registry.epa.gov/qed/hms_kube/hms_flask:dev-gl
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
@@ -29,6 +34,18 @@ spec:
           limits:
             memory: "1Gi"
             cpu: "1000m"
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 30
+          timeoutSeconds: 10
         name: hms-flask
         ports:
         - containerPort: 8080

@@ -44,7 +44,7 @@ CopyDevImages:
     name: dev
     url: http://qed.devsecops-dev.aws.epa.gov
     kubernetes:
-      namespace: qed-kube-scripts-79-dev
+      namespace: hms-kube
 
 ApplyManifests:
   stage: Deployment
@@ -63,7 +63,7 @@ ApplyManifests:
     name: dev
     url: http://qed.devsecops-dev.aws.epa.gov
     kubernetes:
-      namespace: qed-kube-scripts-79-dev
+      namespace: hms-kube
 
 ScalePods:
   stage: Restart Pods
@@ -89,7 +89,7 @@ ScalePods:
     name: dev
     url: http://qed.devsecops-dev.aws.epa.gov
     kubernetes:
-      namespace: qed-kube-scripts-79-dev
+      namespace: hms-kube
 
 PrismaScanDotnet:
   stage: Image Scan
