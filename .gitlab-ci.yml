@@ -98,7 +98,7 @@ DotNetImageScan:
   when: manual
   allow_failure: false
   variables:
-    hms_dotnet_image: "hms_kube/hms_dotnet:dev-gl"
+    hms_dotnet_image: "qed/hms_kube/hms_dotnet:dev-gl"
   script:
     - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $hms_dotnet_image
 
@@ -109,7 +109,7 @@ DjangoImageScan:
   when: manual
   allow_failure: false
   variables:
-    hms_django_image: "hms_kube/hms_django:dev-gl"
+    hms_django_image: "qed/hms_kube/hms_django:dev-gl"
   script:
     - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $hms_django_image
 
@@ -120,7 +120,7 @@ FlaskImageScan:
   when: manual
   allow_failure: false
   variables:
-    hms_flask_image: "hms_kube/hms_flask:dev-gl"
+    hms_flask_image: "qed/hms_kube/hms_flask:dev-gl"
   script:
     - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $hms_flask_image
 
@@ -131,7 +131,7 @@ DaskImageScan:
   when: manual
   allow_failure: false
   variables:
-    hms_dask_image: "hms_kube/hms_dask:dev-gl"
+    hms_dask_image: "qed/hms_kube/hms_dask:dev-gl"
   script:
     - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $hms_dask_image
 
@@ -142,7 +142,7 @@ NginxImageScan:
   when: manual
   allow_failure: false
   variables:
-    hms_nginx_image: "hms_kube/hms_nginx:dev-gl"
+    hms_nginx_image: "qed/hms_kube/hms_nginx:dev-gl"
   script:
     - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $hms_nginx_image
 
@@ -153,6 +153,6 @@ MongoImageScan:
   when: manual
   allow_failure: false
   variables:
-    hms_mongo_image: "hms_kube/hms_mongo:dev-gl"
+    hms_mongo_image: "qed/hms_kube/hms_mongo:dev-gl"
   script:
     - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $hms_mongo_image
