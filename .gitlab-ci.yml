@@ -102,7 +102,7 @@ DotNetImageScan:
   variables:
     prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
     GIT_STRATEGY: clone
-    hms_dotnet_image: "qed/hms_kube/hms_dotnet:dev-gl"
+    hms_dotnet_image: "registry.epa.gov/qed/hms_kube/hms_dotnet:dev-gl"
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
     - docker pull $hms_dotnet_image
