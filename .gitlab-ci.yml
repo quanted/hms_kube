@@ -102,10 +102,10 @@ DotNetImageScan:
   variables:
     prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
     GIT_STRATEGY: clone
-    hms_dotnet_image: "registry.epa.gov/qed/hms_kube/hms_dotnet:dev-gl"
+    prisma_cloud_scan_image: "registry.epa.gov/qed/hms_kube/hms_dotnet:dev-gl"
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
-    - docker pull $hms_dotnet_image
+    - docker pull $prisma_cloud_scan_image
     - ./image_scan.sh
 
 
@@ -120,10 +120,10 @@ DjangoImageScan:
   variables:
     prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
     GIT_STRATEGY: clone
-    hms_image: "registry.epa.gov/qed/hms_kube/hms_django:dev-gl"
+    prisma_cloud_scan_image: "registry.epa.gov/qed/hms_kube/hms_django:dev-gl"
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
-    - docker pull $hms_image
+    - docker pull $prisma_cloud_scan_image
     - ./image_scan.sh
 
 FlaskImageScan:
@@ -137,10 +137,10 @@ FlaskImageScan:
   variables:
     prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
     GIT_STRATEGY: clone
-    hms_image: "registry.epa.gov/qed/hms_kube/hms_flask:dev-gl"
+    prisma_cloud_scan_image: "registry.epa.gov/qed/hms_kube/hms_flask:dev-gl"
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
-    - docker pull $hms_image
+    - docker pull $prisma_cloud_scan_image
     - ./image_scan.sh
 
 DaskImageScan:
@@ -154,10 +154,10 @@ DaskImageScan:
   variables:
     prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
     GIT_STRATEGY: clone
-    hms_image: "registry.epa.gov/qed/hms_kube/hms_dask:dev-gl"
+    prisma_cloud_scan_image: "registry.epa.gov/qed/hms_kube/hms_dask:dev-gl"
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
-    - docker pull $hms_image
+    - docker pull $prisma_cloud_scan_image
     - ./image_scan.sh
 
 NginxImageScan:
@@ -171,10 +171,10 @@ NginxImageScan:
   variables:
     prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
     GIT_STRATEGY: clone
-    hms_image: "registry.epa.gov/qed/hms_kube/hms_nginx:dev-gl"
+    prisma_cloud_scan_image: "registry.epa.gov/qed/hms_kube/hms_nginx:dev-gl"
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
-    - docker pull $hms_image
+    - docker pull $prisma_cloud_scan_image
     - ./image_scan.sh
 
 MongoImageScan:
@@ -188,8 +188,8 @@ MongoImageScan:
   variables:
     prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
     GIT_STRATEGY: clone
-    hms_image: "registry.epa.gov/qed/hms_kube/hms_mongo:dev-gl"
+    prisma_cloud_scan_image: "registry.epa.gov/qed/hms_kube/hms_mongo:dev-gl"
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
-    - docker pull $hms_image
+    - docker pull $prisma_cloud_scan_image
     - ./image_scan.sh
