@@ -111,55 +111,85 @@ DotNetImageScan:
 
 DjangoImageScan:
   stage: Image Scan
+  extends:
+    - .pcs_compute_scan
   tags:
     - twistcli
   when: manual
   allow_failure: false
   variables:
-    hms_django_image: "qed/hms_kube/hms_django:dev-gl"
+    prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+    GIT_STRATEGY: clone
+    hms_image: "registry.epa.gov/qed/hms_kube/hms_django:dev-gl"
   script:
-    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $hms_django_image
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $hms_image
+    - ./image_scan.sh
 
 FlaskImageScan:
   stage: Image Scan
+  extends:
+    - .pcs_compute_scan
   tags:
     - twistcli
   when: manual
   allow_failure: false
   variables:
-    hms_flask_image: "qed/hms_kube/hms_flask:dev-gl"
+    prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+    GIT_STRATEGY: clone
+    hms_image: "registry.epa.gov/qed/hms_kube/hms_flask:dev-gl"
   script:
-    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $hms_flask_image
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $hms_image
+    - ./image_scan.sh
 
 DaskImageScan:
   stage: Image Scan
+  extends:
+    - .pcs_compute_scan
   tags:
     - twistcli
   when: manual
   allow_failure: false
   variables:
-    hms_dask_image: "qed/hms_kube/hms_dask:dev-gl"
+    prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+    GIT_STRATEGY: clone
+    hms_image: "registry.epa.gov/qed/hms_kube/hms_dask:dev-gl"
   script:
-    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $hms_dask_image
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $hms_image
+    - ./image_scan.sh
 
 NginxImageScan:
   stage: Image Scan
+  extends:
+    - .pcs_compute_scan
   tags:
     - twistcli
   when: manual
   allow_failure: false
   variables:
-    hms_nginx_image: "qed/hms_kube/hms_nginx:dev-gl"
+    prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+    GIT_STRATEGY: clone
+    hms_image: "registry.epa.gov/qed/hms_kube/hms_nginx:dev-gl"
   script:
-    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $hms_nginx_image
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $hms_image
+    - ./image_scan.sh
 
 MongoImageScan:
   stage: Image Scan
+  extends:
+    - .pcs_compute_scan
   tags:
     - twistcli
   when: manual
   allow_failure: false
   variables:
-    hms_mongo_image: "qed/hms_kube/hms_mongo:dev-gl"
+    prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
+    GIT_STRATEGY: clone
+    hms_image: "registry.epa.gov/qed/hms_kube/hms_mongo:dev-gl"
   script:
-    - /public/server/apps/twistcli images scan --details --address https://prismacloud.gitlab-prod.aws.epa.gov $hms_mongo_image
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
+    - docker pull $hms_image
+    - ./image_scan.sh
