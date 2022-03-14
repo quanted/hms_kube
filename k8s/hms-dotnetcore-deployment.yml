@@ -22,6 +22,8 @@ spec:
               name: hms-config
         image: ghcr.io/quanted/hms:dev
         imagePullPolicy: Always
+#        image: hms-net5-test
+#        imagePullPolicy: Never
         name: hms-dotnetcore
         readinessProbe:
           tcpSocket:

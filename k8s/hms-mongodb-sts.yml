@@ -17,7 +17,8 @@ spec:
         app: hms-mongodb
     spec:
       containers:
-      - image: mongo:latest
+      - image: ghcr.io/quanted/hms_mongo:main
+#      - image: hms-mongo-test-01
         imagePullPolicy: Always
 #        resources:
 #          requests:

@@ -25,9 +25,9 @@ spec:
         - --no-capture-output
         - dask-worker
         - hms-dask-scheduler:8786
-#        image: ghcr.io/quanted/hms-dask:main
-        image: hms-dask-test-01
-        imagePullPolicy: Never
+        image: ghcr.io/quanted/hms-dask:main
+#        image: hms-dask-test-02
+        imagePullPolicy: Always
         envFrom:
           - configMapRef:
               name: hms-config

@@ -18,6 +18,7 @@ spec:
     spec:
       containers:
       - image: ghcr.io/quanted/hms-nginx:main
+#      - image: hms-nginx-test-02
         imagePullPolicy: Always
         name: nginx
         ports:

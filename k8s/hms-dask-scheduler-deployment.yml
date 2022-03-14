@@ -23,9 +23,9 @@ spec:
         - pyenv
         - --no-capture-output
         - dask-scheduler
-#        image: ghcr.io/quanted/hms-dask:main
-        image: hms-dask-test-01
-        imagePullPolicy: Never
+        image: ghcr.io/quanted/hms-dask:main
+#        image: hms-dask-test-02
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "256Mi"

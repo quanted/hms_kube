@@ -18,6 +18,7 @@ spec:
     spec:
       containers:
       - image: ghcr.io/quanted/hms_flask:dev-kube
+#      - image: hms-flask-test-04
         imagePullPolicy: Always
         envFrom:
           - configMapRef:

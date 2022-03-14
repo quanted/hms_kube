@@ -21,6 +21,7 @@ spec:
           - configMapRef:
               name: hms-config
         image: ghcr.io/quanted/hms_app:dev-kube
+#        image: hms-django-test-03
         imagePullPolicy: Always
         name: hms-django
         ports:
