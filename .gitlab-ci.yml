@@ -9,7 +9,6 @@ include:
     file: '.gitlab-ci.yml'
   - remote: 'https://gitlab.com/prismacloud-public/shift-left/extension/-/raw/master/.pcs.gitlab-ci.yml'
 
-
 CopyDevImages:
   stage: Image Build
   tags:
@@ -40,6 +39,25 @@ CopyDevImages:
     # HMS mongo image
     - echo "FROM ghcr.io/quanted/hms-mongo:main" > /workspace/Dockerfile
     - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_mongo:$CI_COMMIT_REF_NAME
+  environment:
+    name: dev
+    url: http://qed.devsecops-dev.aws.epa.gov
+    kubernetes:
+      namespace: qed-kube-scripts-79-dev
+
+LoadVolumeData:
+  stage: Deployment
+  tags:
+    - devsecops-instance
+  when: manual
+  image: dtzar/helm-kubectl
+  script:
+    - kubectl config set-cluster "$KUBECTL_DEV_CLUSTER" --server="$KUBE_URL"
+    - kubectl config set-cluster "$KUBECTL_DEV_CLUSTER" --certificate-authority=$KUBE_CA_PEM_FILE --embed-certs=true
+    - kubectl config set-credentials gitlab --token="$KUBE_TOKEN"
+    - kubectl config set-context default --cluster="$KUBECTL_DEV_CLUSTER" --user=gitlab --namespace="$KUBE_NAMESPACE"
+    - kubectl config use-context default
+    - ./hms-volume-setup.sh
   environment:
     name: dev
     url: http://qed.devsecops-dev.aws.epa.gov
