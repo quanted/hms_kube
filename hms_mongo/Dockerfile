@@ -3,7 +3,7 @@ FROM mongo:latest
 RUN apt-get update
 RUN apt-get -y upgrade
 
-#RUN apt-get -y install wget
+RUN apt-get -y install golang
 
 ## Uninstall GO
 #RUN apt-get remove golang-go
@@ -23,3 +23,4 @@ RUN apt-get -y upgrade
 
 RUN chown -R mongodb:mongodb /var/log /data/db
 USER mongodb
+
