@@ -4,7 +4,7 @@ metadata:
   labels:
     app: hms-dask-worker
   name: hms-dask-worker
-  namespace: hms-kube
+  namespace: qed-kube-scripts-79-dev
   annotations:
     app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
     app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}
