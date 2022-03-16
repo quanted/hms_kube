@@ -1,5 +1,9 @@
 FROM ghcr.io/quanted/mongodb:5.0.2
+USER root
 
-#RUN chown -R mongodb:mongodb /var/log /data/db
-#USER mongodb
+RUN yum update -y
+RUN yum upgrade -y
+
+RUN chown -R mongodb:mongodb /var/log /data/db
+USER mongodb
 
