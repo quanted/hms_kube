@@ -7,13 +7,12 @@
 #EXPOSE 27017
 #CMD ["mongod"]
 
-FROM mongo:5.0.6
+FROM mongo:5.0.6-focal
 USER root
 
+RUN apt autoremove -y
 RUN apt update -y
 RUN apt upgrade -y
-RUN apt remove -y gosu
-RUN apt remove -y golang
 
 RUN chown -R mongodb:mongodb /var/log /data/db
 USER mongodb
