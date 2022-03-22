@@ -9,7 +9,7 @@ data:
   HMS_LOCAL: "False"
   DJANGO_SETTINGS_MODULE: "settings"
   DASK_SCHEDULER: "hms-dask-scheduler:8786"
-  HMS_BACKEND: "http://hms-dotnetcore:80/"
+  HMS_BACKEND: "http://hms-dotnetcore:8080/"
   HMS_AQUATOX_WEBAPP: "True"
   FLASK_SERVER: "http://hms-nginx:7777"
   GOOGLE_API_KEY: "AIzaSyD7jDvsUDhtofz6LZC2nq8MQokZacOf6Ms"
