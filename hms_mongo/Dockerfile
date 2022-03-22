@@ -1,4 +1,4 @@
-FROM mongo:latest
+#FROM mongo:latest
 #COPY start_mongo.sh /usr/local/bin
 #RUN chmod +x /usr/local/bin/start_mongo.sh
 #
@@ -6,3 +6,13 @@ FROM mongo:latest
 #
 #EXPOSE 27017
 #CMD ["mongod"]
+
+FROM mongo:5.0.6
+USER root
+
+RUN apt update -y
+RUN apt upgrade -y
+RUN apt --only-upgrade install gosu
+
+RUN chown -R mongodb:mongodb /var/log /data/db
+USER mongodb
