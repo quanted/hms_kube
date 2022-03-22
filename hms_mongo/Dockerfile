@@ -13,6 +13,7 @@ USER root
 RUN apt update -y
 RUN apt upgrade -y
 RUN apt --only-upgrade install gosu
+RUN apt --only-upgrade install go
 
 RUN chown -R mongodb:mongodb /var/log /data/db
 USER mongodb
