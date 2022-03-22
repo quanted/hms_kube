@@ -206,7 +206,7 @@ MongoImageScan:
   variables:
     prisma_cloud_compute_url: "https://prismacloud.gitlab-prod.aws.epa.gov"
     GIT_STRATEGY: clone
-    prisma_cloud_scan_image: "registry.epa.gov/qed/hms_kube/hms_mongo:dev-gl"
+    prisma_cloud_scan_image: "registry.epa.gov/qed/hms_kube/hms_mongo:dev-gl-iron"
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.epa.gov
     - docker pull $prisma_cloud_scan_image
