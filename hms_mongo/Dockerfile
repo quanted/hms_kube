@@ -12,8 +12,8 @@ USER root
 
 RUN apt update -y
 RUN apt upgrade -y
-RUN apt --only-upgrade install gosu
-RUN apt --only-upgrade install go
+RUN apt remove -y gosu
+RUN apt remove -y golang
 
 RUN chown -R mongodb:mongodb /var/log /data/db
 USER mongodb
