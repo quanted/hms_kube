@@ -11,13 +11,16 @@ Kubernetes, consisting of a full technology stack for web deployment. HMS consis
   - .NET 6 - hms
  
 #### Kubernetes/Docker Builds
-| Component | Deployment | Docker Image | Build Status |
-| --------- | ---------- | ------------ | ------------ | 
-| django | hms-django-deployment.yml | [quanted/hms_app](https://cloud.docker.com/u/dbsmith88/repository/docker/dbsmith88/hms-django) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/dbsmith88/hms-django.svg) |
-| flask | hms-flask-deployment.yml | [quanted/hms_flask](https://cloud.docker.com/u/dbsmith88/repository/docker/dbsmith88/hms-flask) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/dbsmith88/hms-flask.svg) |
-| dask | hms-dask-deployment.yml | [quanted/hms_kube/dask ](https://cloud.docker.com/u/dbsmith88/repository/docker/dbsmith88/hms-dask) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/dbsmith88/hms-dask.svg) |
-| nginx | hms-nginx-deployment.yml | [quanted/hms_kube/hms_nginx](https://cloud.docker.com/u/dbsmith88/repository/docker/dbsmith88/hms-nginx) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/dbsmith88/hms-nginx.svg) |
-| .NET 6 | hms-dotnetcore-deployment.yml | [quanted/hms](https://cloud.docker.com/u/dbsmith88/repository/docker/dbsmith88/hms_dotnetcore) | ![Docker Build Status](https://img.shields.io/docker/cloud/build/dbsmith88/hms_dotnetcore.svg) |
+
+| Component | Deployment                    | Docker Image                                                                                | Build Status                                                                                             |
+|-----------|-------------------------------|---------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------| 
+| django    | hms-django-deployment.yml     | [quanted/hms_app](https://github.com/quanted/hms_app/pkgs/container/hms_app)                | ![Docker Build Status](https://github.com/quanted/hms_app/actions/workflows/docker-builds.yml/badge.svg) |
+| flask     | hms-flask-deployment.yml      | [quanted/hms_flask](https://github.com/quanted/hms_flask/pkgs/container/hms_flask)          | ![Docker Build Status](https://github.com/quanted/hms_flask/actions/workflows/docker-build.yml/badge.svg) |
+| dask      | hms-dask-deployment.yml       | [quanted/hms_kube/dask ](https://github.com/quanted/hms_kube/pkgs/container/hms-dask)       | ![Docker Build Status](https://github.com/quanted/hms_kube/actions/workflows/docker-build.yml/badge.svg) |
+| nginx     | hms-nginx-deployment.yml      | [quanted/hms_kube/hms_nginx](https://github.com/quanted/hms_nginx/pkgs/container/hms-nginx) | ![Docker Build Status](https://github.com/quanted/hms_kube/actions/workflows/docker-build.yml/badge.svg) |
+| .NET 6    | hms-dotnetcore-deployment.yml | [quanted/hms](https://github.com/quanted/hms/pkgs/container/hms)                            | ![Docker Build Status](https://github.com/quanted/hms/actions/workflows/docker-image.yml/badge.svg)      |
+| mongo     | hms-mongodb-sts.yml           | [quanted/hms_kube/hms_mongo](https://github.com/quanted/hms_kube/pkgs/container/hms_mongo)  | ![Docker Build Status](https://github.com/quanted/hms_kube/actions/workflows/docker-build.yml/badge.svg) |
+
 
 #### Requirements
 
@@ -55,6 +58,8 @@ To create the resources for the  kubernetes dashboard, run the following command
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml
 kubectl proxy
 ```
+The most recent kubernetes dashboard version can be found at: https://github.com/kubernetes/dashboard
+
 The resources necessary for the dashboard are now running, and can be accessed at:
 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 
@@ -77,3 +82,38 @@ Resource metrics can also be tracked by deploying the metric-server
 ```commandline
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 ```
+
+##### Troubleshooting
+If no kubernetes resources are displayed on the dashboard and permissions notifications are present, the permissions of the current user may not be adaquate to use the dashboard.
+To resolve this issue, a new ClusterRoleBinding may be required and assigned to the kubernetes-dashboard ServiceAccount. The following steps will update the kubernetes-dashboard permissions:
+1. Check for existing ClusterRoleBinding in the kubernetes-dashboard namespace 
+```
+kubectl get clusterrolebinding -n kubernetes-dashboard
+```
+2. Delete the ClusterRoleBinding for the kubernetes-dashboard service account
+```
+kubectl delete clusterrolebinding/kubernetes-dashboard -n kubernetes-dashboard
+```
+3. Create a new ClusterRoleBinding, by creating the resource from the command line or creating a yml and applying it.
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubernetes-dashboard
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+```
+4. Apply the above resource, if name is kubernetes-dashboard-crb.yml
+```
+kubectl apply -f kubernetes-dashboard-crb.yml
+```
+Now the enable-skip-login configuration will work and the default kubernetes-dashboard serviceAccount will have admin rights to kubernetes resources. 
+
+This resolution to the permissions issue is only to be used for local setups and not to external deployments.
+
