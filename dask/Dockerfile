@@ -44,10 +44,6 @@ COPY --from=base $CONDA_ENV_BASE $CONDA_ENV_BASE
 ENV PYTHONPATH /src:/src/hms_flask/:$CONDA_ENV_BASE:$PYTHONPATH
 ENV PATH /src:/src/hms_flask/:$CONDA_ENV_BASE:$PATH
 
-#COPY --from=base /opt/conda/envs/pyenv $CONDA_ENV
-#ENV PYTHONPATH /src:/src/hms_flask/:$CONDA_ENV:$PYTHONPATH
-#ENV PATH /src:/src/hms_flask/:$CONDA_ENV:$PATH
-
 RUN chown -R $APP_USER:$APP_USER /src
 RUN chown $APP_USER:$APP_USER $CONDA_ENV_BASE
 USER $APP_USER
