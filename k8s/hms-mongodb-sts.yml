@@ -4,7 +4,7 @@ metadata:
   labels:
     app: hms-mongodb
   name: hms-mongodb
-  namespace: qed-kube-scripts-79-dev
+  namespace: hms-80-stg
   annotations:
     app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
     app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}
@@ -52,4 +52,4 @@ spec:
       volumes:
         - name: mongodb-pvolume
           persistentVolumeClaim:
-            claimName: mongodb-pvolume-claim1
+            claimName: hms-mongodb-pvolume-claim

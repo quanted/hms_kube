@@ -41,9 +41,9 @@ CopyDevImages:
     - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_mongo:$CI_COMMIT_REF_NAME
   environment:
     name: dev
-    url: http://qed.devsecops-dev.aws.epa.gov
+    url: http://qed.qed-stage.aws.epa.gov
     kubernetes:
-      namespace: qed-kube-scripts-79-dev
+      namespace: hms-80-stg
 
 LoadVolumeData:
   stage: Deployment
@@ -60,9 +60,9 @@ LoadVolumeData:
     - ./hms-volume-setup.sh
   environment:
     name: dev
-    url: http://qed.devsecops-dev.aws.epa.gov
+    url: http://qed.qed-stage.aws.epa.gov
     kubernetes:
-      namespace: qed-kube-scripts-79-dev
+      namespace: hms-80-stg
 
 ApplyManifests:
   stage: Deployment
@@ -79,9 +79,9 @@ ApplyManifests:
     - kubectl apply -f k8s/
   environment:
     name: dev
-    url: http://qed.devsecops-dev.aws.epa.gov
+    url: http://qed.qed-stage.aws.epa.gov
     kubernetes:
-      namespace: qed-kube-scripts-79-dev
+      namespace: hms-80-stg
 
 ScalePods:
   stage: Restart Pods
@@ -105,9 +105,9 @@ ScalePods:
     - kubectl scale deployment hms-dotnet --replicas=1
   environment:
     name: dev
-    url: http://qed.devsecops-dev.aws.epa.gov
+    url: http://qed.qed-stage.aws.epa.gov
     kubernetes:
-      namespace: qed-kube-scripts-79-dev
+      namespace: hms-80-stg
 
 DotNetImageScan:
   stage: Image Scan

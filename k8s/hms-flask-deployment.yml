@@ -4,7 +4,7 @@ metadata:
   labels:
     app: hms-flask
   name: hms-flask
-  namespace: qed-kube-scripts-79-dev
+  namespace: hms-80-stg
   annotations:
     app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
     app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}

@@ -4,7 +4,7 @@ metadata:
   labels:
     app: hms-nginx
   name: hms-nginx
-  namespace: qed-kube-scripts-79-dev
+  namespace: hms-80-stg
   annotations:
     app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
     app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}
@@ -52,4 +52,4 @@ spec:
       volumes:
       - name: collected-static
         persistentVolumeClaim:
-          claimName: collected-static-pvolume-claim1
+          claimName: hms-collected-static-pvolume-claim

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: hms-dask-scheduler
   name: hms-dask-scheduler
-  namespace: qed-kube-scripts-79-dev
+  namespace: hms-80-stg
   annotations:
     app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
     app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}

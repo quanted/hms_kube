@@ -2,7 +2,7 @@ apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: hms-dask-worker
-  namespace: qed-kube-scripts-79-dev
+  namespace: hms-80-stg
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
