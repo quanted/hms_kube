@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: hms-config
-  namespace: hms-80-stg
+  namespace: qed-45-stg
   labels:
     app: hms-config
 data:

@@ -4,7 +4,7 @@ metadata:
   labels:
     app: hms-nginx
   name: hms-nginx
-  namespace: hms-80-stg
+  namespace: qed-45-stg
   annotations:
     app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
     app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}

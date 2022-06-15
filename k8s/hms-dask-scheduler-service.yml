@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: hms-dask-scheduler
-  namespace: hms-80-stg
+  namespace: qed-45-stg
 spec:
   ports:
   - name: dask1
