@@ -12,7 +12,7 @@ include:
 CopyDevImages:
   stage: Image Build
   tags:
-    - devsecops-instance
+    - qed-stg-runner
   when: manual
   image:
     name: gcr.io/kaniko-project/executor:debug
@@ -40,15 +40,15 @@ CopyDevImages:
     - echo "FROM ghcr.io/quanted/hms-mongo:dev-gl" > /workspace/Dockerfile
     - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_mongo:$CI_COMMIT_REF_NAME
   environment:
-    name: dev
+    name: stg
     url: http://qed.qed-stage.aws.epa.gov
     kubernetes:
-      namespace: hms-80-stg
+      namespace: qed-45-stg
 
 LoadVolumeData:
   stage: Deployment
   tags:
-    - devsecops-instance
+    - qed-stg-runner
   when: manual
   image: dtzar/helm-kubectl
   script:
@@ -59,15 +59,15 @@ LoadVolumeData:
     - kubectl config use-context default
     - ./hms-volume-setup.sh
   environment:
-    name: dev
+    name: stg
     url: http://qed.qed-stage.aws.epa.gov
     kubernetes:
-      namespace: hms-80-stg
+      namespace: qed-45-stg
 
 ApplyManifests:
   stage: Deployment
   tags:
-    - devsecops-instance
+    - qed-stg-runner
   when: manual
   image: dtzar/helm-kubectl
   script:
@@ -78,15 +78,15 @@ ApplyManifests:
     - kubectl config use-context default
     - kubectl apply -f k8s/
   environment:
-    name: dev
+    name: stg
     url: http://qed.qed-stage.aws.epa.gov
     kubernetes:
-      namespace: hms-80-stg
+      namespace: qed-45-stg
 
 ScalePods:
   stage: Restart Pods
   tags:
-    - devsecops-instance
+    - qed-stg-runner
   when: manual
   image: dtzar/helm-kubectl
   script:
@@ -104,10 +104,10 @@ ScalePods:
     - kubectl scale deployment hms-dotnet --replicas=0
     - kubectl scale deployment hms-dotnet --replicas=1
   environment:
-    name: dev
+    name: stg
     url: http://qed.qed-stage.aws.epa.gov
     kubernetes:
-      namespace: hms-80-stg
+      namespace: qed-45-stg
 
 DotNetImageScan:
   stage: Image Scan
