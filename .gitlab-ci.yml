@@ -57,6 +57,7 @@ LoadVolumeData:
     - kubectl config set-credentials gitlab --token="$KUBE_TOKEN"
     - kubectl config set-context default --cluster="$KUBECTL_DEV_CLUSTER" --user=gitlab --namespace="$KUBE_NAMESPACE"
     - kubectl config use-context default
+    - chmod 775 ./hms-volume-setup.sh
     - ./hms-volume-setup.sh
   environment:
     name: stg
