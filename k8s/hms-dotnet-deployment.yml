@@ -61,4 +61,4 @@ spec:
       volumes:
        - name: hms-dotnet-appdata
          persistentVolumeClaim:
-           claimName: hms-dotnetcore-appdata-pvolume-claim
+           claimName: hms-dotnetcore-appdata-pvolume-claim1
