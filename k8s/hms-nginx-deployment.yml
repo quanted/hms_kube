@@ -52,6 +52,8 @@ spec:
         - mountPath: /src/collected_static
           name: collected-static
       restartPolicy: Always
+      imagePullSecrets:
+        - name: glcr-auth
       volumes:
       - name: collected-static
         persistentVolumeClaim:
