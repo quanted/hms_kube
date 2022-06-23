@@ -57,3 +57,5 @@ spec:
           protocol: TCP
       hostname: hms-dask-scheduler
       restartPolicy: Always
+      imagePullSecrets:
+        - name: glcr-auth
