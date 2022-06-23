@@ -52,6 +52,8 @@ spec:
         - mountPath: /src/hms_app/collected_static
           name: collected-static
       restartPolicy: Always
+      imagePullSecrets:
+        - name: glcr-auth
       schedulerName: default-scheduler
       volumes:
       - name: collected-static
