@@ -54,6 +54,8 @@ spec:
           - mountPath: /src/hms-data
             name: hms-dotnet-appdata
       dnsPolicy: ClusterFirst
+      imagePullSecrets:
+        - name: glcr-auth
       restartPolicy: Always
       schedulerName: default-scheduler
       volumes:
