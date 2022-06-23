@@ -62,6 +62,8 @@ spec:
         volumeMounts:
           - mountPath: /src/hms-data
             name: hms-dotnet-appdata
+      imagePullSecrets:
+        - name: glcr-auth
       hostname: hms-dask-worker
       restartPolicy: Always
       schedulerName: default-scheduler
