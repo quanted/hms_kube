@@ -52,4 +52,4 @@ spec:
       volumes:
         - name: mongodb-pvolume
           persistentVolumeClaim:
-            claimName: hms-mongodb-pvolume-claim
+            claimName: mongodb-pvolume-claim1
