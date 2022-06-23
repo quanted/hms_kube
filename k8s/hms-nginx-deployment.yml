@@ -22,7 +22,10 @@ spec:
         app: hms-nginx
     spec:
       containers:
-      - image: registry.epa.gov/qed/hms_kube/hms_nginx:dev-gl
+      - envFrom:
+        - configMapRef:
+            name: hms-config
+        image: registry.epa.gov/qed/hms_kube/hms_nginx:dev-gl
         imagePullPolicy: Always
         name: nginx
         readinessProbe:
