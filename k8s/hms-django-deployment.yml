@@ -56,4 +56,4 @@ spec:
       volumes:
       - name: collected-static
         persistentVolumeClaim:
-          claimName: hms-collected-static-pvolume-claim
+          claimName: collected-static-pvolume-claim1
