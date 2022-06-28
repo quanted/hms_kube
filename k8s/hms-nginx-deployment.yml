@@ -4,11 +4,7 @@ metadata:
   labels:
     app: hms-nginx
   name: hms-nginx
-  namespace: qed-45-stg
-  annotations:
-    app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
-    app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}
-    eks.amazonaws.com/compute-type: fargate
+  namespace: qed-kube-dev
 spec:
   replicas: 1
   selector:
@@ -22,7 +18,7 @@ spec:
         app: hms-nginx
     spec:
       containers:
-      - image: registry.epa.gov/qed/hms_kube/hms_nginx:dev-gl
+      - image: ghcr.io/quanted/hms-nginx:main
         imagePullPolicy: Always
         name: nginx
         readinessProbe:
@@ -52,4 +48,4 @@ spec:
       volumes:
       - name: collected-static
         persistentVolumeClaim:
-          claimName: hms-collected-static-pvolume-claim
+          claimName: collected-static-pvolume-claim1

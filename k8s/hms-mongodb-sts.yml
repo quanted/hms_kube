@@ -4,11 +4,7 @@ metadata:
   labels:
     app: hms-mongodb
   name: hms-mongodb
-  namespace: qed-45-stg
-  annotations:
-    app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
-    app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}
-    eks.amazonaws.com/compute-type: fargate
+  namespace: qed-kube-dev
 spec:
   podManagementPolicy: OrderedReady
   replicas: 1
@@ -22,7 +18,7 @@ spec:
         app: hms-mongodb
     spec:
       containers:
-      - image: registry.epa.gov/qed/hms_kube/hms_mongo:dev-gl
+      - image: ghcr.io/quanted/hms-mongo:main
         imagePullPolicy: Always
         command: ['mongod', '--bind_ip_all']
         name: hms-mongodb
@@ -52,4 +48,4 @@ spec:
       volumes:
         - name: mongodb-pvolume
           persistentVolumeClaim:
-            claimName: hms-mongodb-pvolume-claim
+            claimName: mongodb-pvolume-claim1

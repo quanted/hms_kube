@@ -5,11 +5,7 @@ metadata:
   labels:
     app: hms-dask-scheduler
   name: hms-dask-scheduler
-  namespace: qed-45-stg
-  annotations:
-    app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
-    app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}
-    eks.amazonaws.com/compute-type: fargate
+  namespace: qed-kube-dev
 spec:
   replicas: 1
   selector:
@@ -28,7 +24,7 @@ spec:
         - pyenv
         - --no-capture-output
         - dask-scheduler
-        image: registry.epa.gov/qed/hms_kube/hms_dask:dev-gl
+        image: ghcr.io/quanted/hms-dask:main
         imagePullPolicy: Always
         readinessProbe:
           tcpSocket:

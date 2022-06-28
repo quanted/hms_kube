@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: hms-flask
-  namespace: qed-45-stg
+  namespace: qed-kube-dev
 spec:
   ports:
   - port: 8080

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: hms-config
-  namespace: qed-45-stg
+  namespace: qed-kube-dev
   labels:
     app: hms-config
 data:
