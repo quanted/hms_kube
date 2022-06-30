@@ -104,6 +104,8 @@ ScalePods:
     - kubectl scale deployment hms-dask-worker --replicas=3
     - kubectl scale deployment hms-dotnet --replicas=0
     - kubectl scale deployment hms-dotnet --replicas=1
+    - kubectl scale deployment hms-nginx --replicas=0
+    - kubectl scale deployment hms-nginx --replicas=1
   environment:
     name: stg
     url: http://qed.qed-stage.aws.epa.gov
