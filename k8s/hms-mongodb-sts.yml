@@ -18,9 +18,13 @@ spec:
         app: hms-mongodb
     spec:
       containers:
-      - image: ghcr.io/quanted/hms-mongo:main
+      - image: ghcr.io/quanted/hms-mongo:dev-aws
         imagePullPolicy: Always
-        command: ['mongod', '--bind_ip_all']
+        # command: ['mongod', '--bind_ip_all']
+        command:
+          - mongod
+          - --dbpath
+          - '/data/db/hms'
         name: hms-mongodb
         readinessProbe:
           exec:
