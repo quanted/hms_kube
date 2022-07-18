@@ -6,7 +6,7 @@ metadata:
   name: hms-dask-worker
   namespace: qed-kube-dev
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: hms-dask-worker
