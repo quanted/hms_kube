@@ -83,6 +83,25 @@ ApplyManifests:
     url: http://qed.qed-stage.aws.epa.gov
     kubernetes:
       namespace: qed-45-stg
+      
+DeleteManifests:
+  stage: Deployment
+  tags:
+    - qed-stg-runner
+  when: manual
+  image: dtzar/helm-kubectl
+  script:
+    - kubectl config set-cluster "$KUBECTL_DEV_CLUSTER" --server="$KUBE_URL"
+    - kubectl config set-cluster "$KUBECTL_DEV_CLUSTER" --certificate-authority=$KUBE_CA_PEM_FILE --embed-certs=true
+    - kubectl config set-credentials gitlab --token="$KUBE_TOKEN"
+    - kubectl config set-context default --cluster="$KUBECTL_DEV_CLUSTER" --user=gitlab --namespace="$KUBE_NAMESPACE"
+    - kubectl config use-context default
+    - kubectl delete -f k8s/
+  environment:
+    name: stg
+    url: http://qed.qed-stage.aws.epa.gov
+    kubernetes:
+      namespace: qed-45-stg
 
 ScalePods:
   stage: Restart Pods
