@@ -40,7 +40,7 @@ spec:
             cpu: "500m"
         ports:
         - containerPort: 80
-        - containerPort: 443
+        - containerPort: 7777
         volumeMounts:
         - mountPath: /src/collected_static
           name: collected-static
