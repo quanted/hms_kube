@@ -1,4 +1,4 @@
-FROM ghcr.io/quanted/mongo:5.0.6
+FROM ghcr.io/quanted/mongo:5.0.9
 USER root
 #RUN chown -R mongodb:mongodb /var/log /data/db
 #USER mongodb
