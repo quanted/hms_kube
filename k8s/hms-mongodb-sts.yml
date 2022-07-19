@@ -24,7 +24,12 @@ spec:
       containers:
       - image: registry.epa.gov/qed/hms_kube/hms_mongo:dev-gl
         imagePullPolicy: Always
-        command: ['mongod', '--bind_ip_all']
+        # command: ['mongod', '--bind_ip_all']
+        command:
+          - mongod
+          - --dbpath
+          - '/data/db/hms'
+          - --bind_ip_all
         name: hms-mongodb
         readinessProbe:
           exec:
