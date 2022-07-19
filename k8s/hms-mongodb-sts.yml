@@ -25,6 +25,7 @@ spec:
           - mongod
           - --dbpath
           - '/data/db/hms'
+          - --bind_ip_all
         name: hms-mongodb
         readinessProbe:
           exec:
