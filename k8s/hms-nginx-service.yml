@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     app: hms-nginx
-  type: NodePort
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 8080
