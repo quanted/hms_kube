@@ -51,6 +51,12 @@ spec:
         volumeMounts:
         - mountPath: /src/collected_static
           name: collected-static
+        - mountPath: /etc/nginx/conf.d/
+          name: nginx-dir
+        - mountPath: /var/cache/nginx/client_temp
+          name: nginx-empty
+        - mountPath: /var/run/
+          name: nginx-run
       restartPolicy: Always
       imagePullSecrets:
         - name: glcr-auth
@@ -58,3 +64,10 @@ spec:
       - name: collected-static
         persistentVolumeClaim:
           claimName: collected-static-pvolume-claim1
+      # https://stackoverflow.com/questions/64386645/error-user-directive-makes-sense-only-if-the-master-process-runs-with-super-u
+      - name: nginx-dir
+        emptyDir: {}
+      - name: nginx-empty
+        emptyDir: {}
+      - name: nginx-run
+        emptyDir: {}
