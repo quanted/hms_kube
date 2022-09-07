@@ -3,6 +3,9 @@ FROM nginx:stable
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d
 
+RUN apk update
+RUN apk upgrade
+
 ARG APP_USER=nginx
 
 RUN mkdir /src
