@@ -3,8 +3,8 @@ FROM nginx:stable
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d
 
-RUN apk update
-RUN apk upgrade
+RUN apt-get update
+RUN apt-get upgrade -y
 
 ARG APP_USER=nginx
 
