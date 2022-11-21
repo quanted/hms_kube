@@ -45,6 +45,43 @@ CopyDevImages:
     kubernetes:
       namespace: qed-45-stg
 
+SetProdImages:
+  stage: Image Build
+  tags:
+    - qed-stg-runner
+  when: manual
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [ "" ]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - mkdir -p /workspace
+    - export VERSION=$(node -p "require('./version.json').version")
+    # HMS .NET5 image
+    - echo "FROM $CI_REGISTRY_IMAGE/hms_dotnet:dev-gl" > /workspace/Dockerfile
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_dotnet:main-$VERSION
+    # HMS django image
+    - echo "FROM $CI_REGISTRY_IMAGE/hms_django:dev-gl" > /workspace/Dockerfile
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_django:main-$VERSION
+    # HMS flask image
+    - echo "FROM $CI_REGISTRY_IMAGE/hms_flask:dev-gl" > /workspace/Dockerfile
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_flask:main-$VERSION
+    # HMS dask image
+    - echo "FROM $CI_REGISTRY_IMAGE/hms_dask:dev-gl" > /workspace/Dockerfile
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_dask:main-$VERSION
+    # HMS nginx image
+    - echo "FROM $CI_REGISTRY_IMAGE/hms_nginx:dev-gl" > /workspace/Dockerfile
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_nginx:main-$VERSION
+    # HMS mongo image
+    - echo "FROM $CI_REGISTRY_IMAGE/hms_mongo:dev-gl" > /workspace/Dockerfile
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_mongo:main-$VERSION
+  environment:
+    name: stg
+    url: http://qed.qed-stage.aws.epa.gov
+    kubernetes:
+      namespace: qed-45-stg
+
 LoadVolumeData:
   stage: Deployment
   tags:
