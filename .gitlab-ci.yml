@@ -8,6 +8,7 @@ include:
   - project: 'DSO/DASTScanner'
     file: '.gitlab-ci.yml'
   - remote: 'https://gitlab.com/prismacloud-public/shift-left/extension/-/raw/master/.pcs.gitlab-ci.yml'
+  - local: 'version.yml'
 
 CopyDevImages:
   stage: Image Build
@@ -57,25 +58,24 @@ SetProdImages:
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - mkdir -p /workspace
-    - export VERSION=$(node -p "require('./version.json').version")
     # HMS .NET5 image
     - echo "FROM $CI_REGISTRY_IMAGE/hms_dotnet:dev-gl" > /workspace/Dockerfile
-    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_dotnet:main-$VERSION
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_dotnet:main-$PROD_VERSION
     # HMS django image
     - echo "FROM $CI_REGISTRY_IMAGE/hms_django:dev-gl" > /workspace/Dockerfile
-    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_django:main-$VERSION
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_django:main-$PROD_VERSION
     # HMS flask image
     - echo "FROM $CI_REGISTRY_IMAGE/hms_flask:dev-gl" > /workspace/Dockerfile
-    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_flask:main-$VERSION
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_flask:main-$PROD_VERSION
     # HMS dask image
     - echo "FROM $CI_REGISTRY_IMAGE/hms_dask:dev-gl" > /workspace/Dockerfile
-    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_dask:main-$VERSION
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_dask:main-$PROD_VERSION
     # HMS nginx image
     - echo "FROM $CI_REGISTRY_IMAGE/hms_nginx:dev-gl" > /workspace/Dockerfile
-    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_nginx:main-$VERSION
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_nginx:main-$PROD_VERSION
     # HMS mongo image
     - echo "FROM $CI_REGISTRY_IMAGE/hms_mongo:dev-gl" > /workspace/Dockerfile
-    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_mongo:main-$VERSION
+    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_mongo:main-$PROD_VERSION
   environment:
     name: stg
     url: http://qed.qed-stage.aws.epa.gov
