@@ -46,6 +46,7 @@ CopyDevImages:
       namespace: qed-45-stg
 
 ProdTrigger:
+  stage: Image Build
   trigger:
     include: "version.yml"
     strategy: depend
