@@ -5,6 +5,7 @@ stages:
   - Image Scan
 
 include:
+  - local: 'version.yml'
   - project: 'DSO/DASTScanner'
     file: '.gitlab-ci.yml'
   - remote: 'https://gitlab.com/prismacloud-public/shift-left/extension/-/raw/master/.pcs.gitlab-ci.yml'
@@ -44,14 +45,6 @@ CopyDevImages:
     url: http://qed.qed-stage.aws.epa.gov
     kubernetes:
       namespace: qed-45-stg
-
-ProdTrigger:
-  stage: Image Build
-  trigger:
-    include: "version.yml"
-    strategy: depend
-    forward:
-      pipeline_variables: true
 
 SetProdImages:
   stage: Image Build
