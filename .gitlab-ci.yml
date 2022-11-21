@@ -8,7 +8,6 @@ include:
   - project: 'DSO/DASTScanner'
     file: '.gitlab-ci.yml'
   - remote: 'https://gitlab.com/prismacloud-public/shift-left/extension/-/raw/master/.pcs.gitlab-ci.yml'
-  - local: 'version.yml'
 
 CopyDevImages:
   stage: Image Build
@@ -48,6 +47,9 @@ CopyDevImages:
 
 SetProdImages:
   stage: Image Build
+  trigger:
+    include: "version.yml"
+    strategy: depend
   tags:
     - qed-stg-runner
   when: manual
