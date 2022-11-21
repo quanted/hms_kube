@@ -45,11 +45,15 @@ CopyDevImages:
     kubernetes:
       namespace: qed-45-stg
 
-SetProdImages:
-  stage: Image Build
+ProdTrigger:
   trigger:
     include: "version.yml"
     strategy: depend
+    forward:
+      pipeline_variables: true
+
+SetProdImages:
+  stage: Image Build
   tags:
     - qed-stg-runner
   when: manual
