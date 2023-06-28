@@ -192,6 +192,7 @@ DotNetImageScan:
   stage: Image Scan
   tags:
     - twistcli
+  when: manual
   variables:
     GIT_STRATEGY: clone
   script:
@@ -205,6 +206,7 @@ DjangoImageScan:
   stage: Image Scan
   tags:
     - twistcli
+  when: manual
   variables:
     GIT_STRATEGY: clone
   script:
@@ -218,6 +220,7 @@ FlaskImageScan:
   stage: Image Scan
   tags:
     - twistcli
+  when: manual
   variables:
     GIT_STRATEGY: clone
   script:
@@ -231,6 +234,7 @@ DaskImageScan:
   stage: Image Scan
   tags:
     - twistcli
+  when: manual
   variables:
     GIT_STRATEGY: clone
   script:
@@ -244,6 +248,7 @@ NginxImageScan:
   stage: Image Scan
   tags:
     - twistcli
+  when: manual
   variables:
     GIT_STRATEGY: clone
   script:
@@ -257,6 +262,7 @@ MongoImageScan:
   stage: Image Scan
   tags:
     - twistcli
+  when: manual
   variables:
     GIT_STRATEGY: clone
   script:
