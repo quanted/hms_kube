@@ -57,4 +57,5 @@ RUN chown $APP_USER:$APP_USER $CONDA_ENV
 USER $APP_USER
 
 # CMD ["conda", "run", "-p", "$CONDA_ENV_BASE", "--no-capture-output", "dask-worker", "hms-dask-scheduler:8786"]
-CMD ["conda", "run", "-n", "$CONDA_ENV_BASE", "--no-capture-output", "dask-worker", "hms-dask-scheduler:8786"]
+# CMD ["conda", "run", "-n", "$CONDA_ENV_BASE", "--no-capture-output", "dask-worker", "hms-dask-scheduler:8786"]
+CMD ["conda", "run", "-p", "$CONDA_ENV", "--no-capture-output", "dask-worker", "hms-dask-scheduler:8786"]
