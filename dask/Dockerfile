@@ -33,6 +33,7 @@ FROM continuumio/miniconda3:23.5.2-0-alpine as prime
 
 ENV APP_USER=www-data
 ENV CONDA_ENV=/home/www-data/pyenv
+# ARG CONDA_ENV_BASE=/opt/conda/envs/pyenv
 
 RUN adduser -S $APP_USER -G $APP_USER
 
@@ -40,22 +41,21 @@ RUN apk update
 RUN apk upgrade
 RUN apk add --no-cache geos gdal cmake git gfortran sqlite sqlite-dev
 
-# COPY uwsgi.ini /etc/uwsgi/
-# COPY . /src/hms_flask
-# RUN chmod 755 /src/hms_flask/start_flask.sh
 WORKDIR /src
 
-EXPOSE 8080
+# EXPOSE 8080
 
 COPY --from=base /opt/conda/envs/pyenv $CONDA_ENV
+# COPY --from=base $CONDA_ENV_BASE $CONDA_ENV_BASE
 
 ENV PYTHONPATH /src:/src/hms_flask/:$CONDA_ENV:$PYTHONPATH
 ENV PATH /src:/src/hms_flask/:$CONDA_ENV:$PATH
 
+# RUN chown -R $APP_USER:$APP_USER /src
+# RUN chown $APP_USER:$APP_USER $CONDA_ENV
 RUN chown -R $APP_USER:$APP_USER /src
-RUN chown $APP_USER:$APP_USER $CONDA_ENV
+RUN chown $APP_USER:$APP_USER $CONDA_ENV_BASE
+
 USER $APP_USER
 
-# CMD ["conda", "run", "-p", "$CONDA_ENV_BASE", "--no-capture-output", "dask-worker", "hms-dask-scheduler:8786"]
-# CMD ["conda", "run", "-n", "$CONDA_ENV_BASE", "--no-capture-output", "dask-worker", "hms-dask-scheduler:8786"]
 CMD ["conda", "run", "-p", "$CONDA_ENV", "--no-capture-output", "dask-worker", "hms-dask-scheduler:8786"]
