@@ -18,12 +18,13 @@ spec:
     spec:
       containers:
       - args:
-        - conda
-        - run
-        - -n
-        - pyenv
-        - --no-capture-output
         - dask-scheduler
+        # - conda
+        # - run
+        # - -n
+        # - pyenv
+        # - --no-capture-output
+        # - dask-scheduler
         image: ghcr.io/quanted/hms-dask:main
         imagePullPolicy: Always
         readinessProbe:
