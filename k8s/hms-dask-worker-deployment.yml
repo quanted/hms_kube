@@ -19,14 +19,14 @@ spec:
     spec:
       containers:
       - args:
-        - conda
-        - run
-        - -n
-        - pyenv
-        - --no-capture-output
+        # - conda
+        # - run
+        # - -n
+        # - pyenv
+        # - --no-capture-output
         - dask-worker
         - hms-dask-scheduler:8786
-        image: ghcr.io/quanted/hms-dask:main
+        image: ghcr.io/quanted/hms_flask:dev-kube
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
