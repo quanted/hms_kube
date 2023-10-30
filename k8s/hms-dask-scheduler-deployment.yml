@@ -25,7 +25,7 @@ spec:
         # - pyenv
         # - --no-capture-output
         # - dask-scheduler
-        image: ghcr.io/quanted/hms-dask:main
+        image: ghcr.io/quanted/hms_flask:dev-kube
         imagePullPolicy: Always
         readinessProbe:
           tcpSocket:
