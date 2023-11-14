@@ -5,7 +5,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d
 
 RUN apk update && \
-	apk upgrade
+	apk upgrade --available
 
 ARG APP_USER=nginx
 
