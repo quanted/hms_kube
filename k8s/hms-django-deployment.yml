@@ -20,9 +20,9 @@ spec:
       - envFrom:
           - configMapRef:
               name: hms-config
-#        image: ghcr.io/quanted/hms_app:dev-kube
-        image: hms-django-test-02
-        imagePullPolicy: Never
+        image: ghcr.io/quanted/hms_app:dev-kube
+#        image: hms-django-test-02
+        imagePullPolicy: Always
         name: hms-django
         ports:
         - containerPort: 8080

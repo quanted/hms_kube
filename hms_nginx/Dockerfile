@@ -3,7 +3,7 @@ FROM nginx:stable-alpine
 ARG APP_USER=nginx
 
 RUN apk update
-RUN apk upgrade
+RUN apk upgrade --available
 
 RUN rm /etc/nginx/conf.d/default.conf
 
