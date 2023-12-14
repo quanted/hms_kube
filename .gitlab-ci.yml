@@ -32,8 +32,8 @@ CopyDevImages:
     - echo "FROM ghcr.io/quanted/hms_flask:dev-kube" > /workspace/Dockerfile
     - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_flask:$CI_COMMIT_REF_NAME
     # HMS dask image
-    - echo "FROM ghcr.io/quanted/hms_flask:dev-kube" > /workspace/Dockerfile
-    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_dask:$CI_COMMIT_REF_NAME
+#    - echo "FROM ghcr.io/quanted/hms_flask:dev-kube" > /workspace/Dockerfile
+#    - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_dask:$CI_COMMIT_REF_NAME
     # HMS nginx image
     - echo "FROM ghcr.io/quanted/hms-nginx:dev-gl" > /workspace/Dockerfile
     - /kaniko/executor --context=/workspace --destination=$CI_REGISTRY_IMAGE/hms_nginx:$CI_COMMIT_REF_NAME

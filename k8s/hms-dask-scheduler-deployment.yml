@@ -28,7 +28,7 @@ spec:
         - pyenv
         - --no-capture-output
         - dask-scheduler
-        image: registry.epa.gov/qed/hms_kube/hms_dask:dev-gl
+        image: registry.epa.gov/qed/hms_kube/hms_flask:dev-gl
         imagePullPolicy: Always
         readinessProbe:
           tcpSocket:
