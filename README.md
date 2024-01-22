@@ -116,4 +116,3 @@ kubectl apply -f kubernetes-dashboard-crb.yml
 Now the enable-skip-login configuration will work and the default kubernetes-dashboard serviceAccount will have admin rights to kubernetes resources. 
 
 This resolution to the permissions issue is only to be used for local setups and not to external deployments.
-
