@@ -21,7 +21,6 @@ Kubernetes, consisting of a full technology stack for web deployment. HMS consis
 
 #### Requirements
 
-
 ##### Docker-Desktop (Windows)
 
 Docker-Desktop is an alternative option for running a single-node kubernetes cluster. After installing Docker-Desktop, or updating to the latest version, turn Kubernetes on in Settings and restart docker-desktop. A new kubernetes context will be created 'docker-desktop' which can be used to run the stack.
