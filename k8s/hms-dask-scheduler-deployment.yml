@@ -18,25 +18,23 @@ spec:
     spec:
       containers:
       - args:
-        - dask-scheduler
-        # - conda
-        # - run
-        # - -n
-        # - pyenv
-        # - --no-capture-output
-        # - dask-scheduler
+        - dask scheduler
         image: ghcr.io/quanted/hms_flask:dev-kube
         imagePullPolicy: Always
-        readinessProbe:
-          tcpSocket:
-            port: 8786
-          initialDelaySeconds: 5
-          periodSeconds: 10
-          timeoutSeconds: 10
         livenessProbe:
-          tcpSocket:
-            port: 8786
-          initialDelaySeconds: 15
+          exec:
+            command:
+              - ls
+              - /
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+              - ls
+              - /
+          initialDelaySeconds: 10
           periodSeconds: 30
           timeoutSeconds: 10
         resources:
