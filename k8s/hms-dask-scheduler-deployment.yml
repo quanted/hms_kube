@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - args:
-        - dask scheduler
+        - dask-scheduler
         image: ghcr.io/quanted/hms_flask:dev-kube
         imagePullPolicy: Always
         livenessProbe:
