@@ -18,7 +18,7 @@ spec:
         app: hms-nginx
     spec:
       containers:
-      - image: ghcr.io/quanted/hms-nginx:main
+      - image: ghcr.io/quanted/hms-nginx:dev-aws
         imagePullPolicy: Always
         name: nginx
         readinessProbe:
