@@ -9,8 +9,8 @@ spec:
   type: NodePort
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
+      port: 8008
+      targetPort: 8008
       name: http
     - protocol: TCP
       port: 7777

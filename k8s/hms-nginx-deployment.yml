@@ -23,12 +23,12 @@ spec:
         name: nginx
         readinessProbe:
           tcpSocket:
-            port: 80
+            port: 8008
           initialDelaySeconds: 5
           periodSeconds: 10
         livenessProbe:
           tcpSocket:
-            port: 80
+            port: 8008
           initialDelaySeconds: 15
           periodSeconds: 30
         resources:
@@ -39,7 +39,7 @@ spec:
             memory: "500Mi"
             cpu: "500m"
         ports:
-        - containerPort: 80
+        - containerPort: 8008
         - containerPort: 7777
         volumeMounts:
         - mountPath: /src/collected_static
