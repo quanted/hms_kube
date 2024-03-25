@@ -13,6 +13,7 @@ ARG CONFIG=nginx.conf
 
 COPY $CONFIG /etc/nginx/conf.d/
 
+RUN mkdir /src
 RUN chown -R $APP_USER:$APP_USER /src && chmod -R 755 /src && \
         chown -R $APP_USER:$APP_USER /etc/nginx/conf.d && \
         chown -R $APP_USER:$APP_USER /var/cache/nginx
