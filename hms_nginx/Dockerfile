@@ -1,4 +1,4 @@
-FROM nginx:stable-alpine3.17-slim
+FROM nginx:stable-alpine3.19-slim
 
 RUN rm /etc/nginx/conf.d/default.conf
 
@@ -6,6 +6,7 @@ COPY nginx.conf /etc/nginx/conf.d
 
 RUN apk update && \
 	apk upgrade --available
+RUN apk upgrade busybox --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main
 
 ARG APP_USER=nginx
 
