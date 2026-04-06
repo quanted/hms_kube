@@ -30,7 +30,7 @@ spec:
         - --no-capture-output
         - dask-worker
         - hms-dask-scheduler:8786
-        image: registry.epa.gov/qed/hms_kube/hms_flask:dev-gl
+        image: ghcr.io/quanted/hms_flask:dev-kube
         imagePullPolicy: Always
         envFrom:
           - configMapRef:

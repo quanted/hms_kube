@@ -22,7 +22,7 @@ spec:
         app: hms-mongodb
     spec:
       containers:
-      - image: registry.epa.gov/qed/hms_kube/hms_mongo:dev-gl
+      - image: ghcr.io/quanted/hms-mongo:dev-gl
         imagePullPolicy: Always
         # command: ['mongod', '--bind_ip_all']
         command:

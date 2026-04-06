@@ -25,7 +25,7 @@ spec:
       - envFrom:
           - configMapRef:
               name: hms-config
-        image: registry.epa.gov/qed/hms_kube/hms_dotnet:dev-gl
+        image: ghcr.io/quanted/hms_dotnet:dev-kube
         imagePullPolicy: Always
         name: hms-dotnet
         readinessProbe:

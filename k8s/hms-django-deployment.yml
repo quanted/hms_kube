@@ -25,7 +25,7 @@ spec:
       - envFrom:
           - configMapRef:
               name: hms-config
-        image: registry.epa.gov/qed/hms_kube/hms_django:dev-gl
+        image: ghcr.io/quanted/hms_django:dev-kube
         imagePullPolicy: Always
         name: hms-django
         readinessProbe:

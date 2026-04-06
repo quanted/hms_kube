@@ -25,7 +25,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: hms-config
-        image: registry.epa.gov/qed/hms_kube/hms_nginx:dev-gl
+        image: ghcr.io/quanted/hms-nginx:dev-gl
         imagePullPolicy: Always
         name: nginx
         readinessProbe:
