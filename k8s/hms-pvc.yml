@@ -2,7 +2,7 @@
 # kind: PersistentVolumeClaim
 # metadata:
 #   name: hms-app-data-pvolume-claim
-#   namespace: qed-45-stg
+#   namespace: default
 # spec:
 #   accessModes:
 #     - ReadWriteMany
@@ -16,7 +16,7 @@
 # kind: PersistentVolumeClaim
 # metadata:
 #   name: hms-collected-static-pvolume-claim
-#   namespace: qed-45-stg
+#   namespace: default
 # spec:
 #   accessModes:
 #     - ReadWriteMany
@@ -30,7 +30,7 @@
 # kind: PersistentVolumeClaim
 # metadata:
 #   name: hms-dotnetcore-appdata-pvolume-claim
-#   namespace: qed-45-stg
+#   namespace: default
 # spec:
 #   accessModes:
 #     - ReadWriteMany
@@ -44,7 +44,7 @@
 # kind: PersistentVolumeClaim
 # metadata:
 #   name: hms-mongodb-pvolume-claim
-#   namespace: qed-45-stg
+#   namespace: default
 # spec:
 #   accessModes:
 #     - ReadWriteMany
