@@ -50,8 +50,7 @@ spec:
           limits:
             memory: "2Gi"
             cpu: "2000m"
-      imagePullSecrets:
-        - name: glcr-auth
+
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

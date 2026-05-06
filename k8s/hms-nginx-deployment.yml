@@ -48,8 +48,7 @@ spec:
         volumeMounts:
         - mountPath: /src/collected_static
           name: collected-static
-      imagePullSecrets:
-        - name: glcr-auth
+
       volumes:
       - name: collected-static
         persistentVolumeClaim:
