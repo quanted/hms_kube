@@ -5,8 +5,8 @@
 
 
 
-FROM ubuntu:24.10
-ENV MONGO_VERSION=6.0.16
+FROM ubuntu:25.10
+ENV MONGO_VERSION=6.0.27
 
 RUN apt-get update && apt-get install -y gnupg curl
 

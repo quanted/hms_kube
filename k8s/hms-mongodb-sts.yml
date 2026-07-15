@@ -4,11 +4,8 @@ metadata:
   labels:
     app: hms-mongodb
   name: hms-mongodb
-  namespace: qed-45-stg
-  annotations:
-    app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
-    app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}
-    eks.amazonaws.com/compute-type: fargate
+  namespace: default
+
 spec:
   podManagementPolicy: OrderedReady
   replicas: 1
@@ -52,11 +49,10 @@ spec:
           - mountPath: /data/db
             name: mongodb-pvolume
       dnsPolicy: ClusterFirst
-      imagePullSecrets:
-        - name: glcr-auth
+
       restartPolicy: Always
       schedulerName: default-scheduler
       volumes:
         - name: mongodb-pvolume
           persistentVolumeClaim:
-            claimName: mongodb-pvolume-claim1
+            claimName: mongodb-pvolume-claim

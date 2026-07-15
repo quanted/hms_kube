@@ -4,11 +4,8 @@ metadata:
   labels:
     app: hms-nginx
   name: hms-nginx
-  namespace: qed-45-stg
-  annotations:
-    app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}
-    app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}
-    eks.amazonaws.com/compute-type: fargate
+  namespace: default
+
 spec:
   replicas: 1
   selector:
@@ -51,9 +48,8 @@ spec:
         volumeMounts:
         - mountPath: /src/collected_static
           name: collected-static
-      imagePullSecrets:
-        - name: glcr-auth
+
       volumes:
       - name: collected-static
         persistentVolumeClaim:
-          claimName: collected-static-pvolume-claim1
+          claimName: collected-static-pvolume-claim

@@ -1,0 +1,56 @@
+# pv-local.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: app-data-pvolume
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: # update this
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: collected-static-pvolume
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: # update this
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: hms-dotnetcore-appdata-pvolume
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: # update this
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongodb-pvolume
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: # update this
