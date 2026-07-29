@@ -19,13 +19,12 @@ spec:
     spec:
       containers:
       - args:
-        - conda
+        - micromamba
         - run
         - -n
         - pyenv
-        - --no-capture-output
         - dask-scheduler
-        image: ghcr.io/quanted/hms_flask:dev-kube
+        image: ghcr.io/quanted/hms_flask:dev-kube-31bab36f1fc9330b0be3964aa52185b010fb7e52
         imagePullPolicy: Always
         readinessProbe:
           tcpSocket:
