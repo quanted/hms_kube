@@ -24,7 +24,7 @@ spec:
         - -n
         - pyenv
         - dask-scheduler
-        image: ghcr.io/quanted/hms_flask:dev-kube-31bab36f1fc9330b0be3964aa52185b010fb7e52
+        image: ghcr.io/quanted/hms_flask:dev-kube-e58edfbfe7c7eeadf85abf7e2893f90429d7aca8
         imagePullPolicy: Always
         readinessProbe:
           tcpSocket:

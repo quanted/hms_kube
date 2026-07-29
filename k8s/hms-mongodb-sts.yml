@@ -19,14 +19,14 @@ spec:
         app: hms-mongodb
     spec:
       containers:
-      - image: ghcr.io/quanted/hms-mongo:dev-gl
+      - image: ghcr.io/quanted/hms-mongo:dev-kube-ebf94a3a716c8dc59777a095a08191220d654732
         imagePullPolicy: Always
-        # command: ['mongod', '--bind_ip_all']
-        command:
-          - mongod
-          - --dbpath
-          - '/data/db/hms'
-          - --bind_ip_all
+        command: ['mongod', '--bind_ip_all']
+        # command:
+        #   - mongod
+        #   - --dbpath
+        #   - '/data/db/hms'
+        #   - --bind_ip_all
         name: hms-mongodb
         readinessProbe:
           exec:
@@ -55,4 +55,4 @@ spec:
       volumes:
         - name: mongodb-pvolume
           persistentVolumeClaim:
-            claimName: mongodb-pvolume-claim
+            claimName: hms-mongodb-pvolume-claim

@@ -22,7 +22,7 @@ spec:
       - envFrom:
           - configMapRef:
               name: hms-config
-        image: ghcr.io/quanted/hms_app:dev-kube
+        image: ghcr.io/quanted/hms_app:dev-kube-13f429914315b5b9375ce2021d01c99dee20a824
         imagePullPolicy: Always
         name: hms-django
         readinessProbe:
