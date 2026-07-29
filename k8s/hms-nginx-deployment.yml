@@ -22,7 +22,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: hms-config
-        image: ghcr.io/quanted/hms-nginx:dev-gl
+        image: ghcr.io/quanted/hms-nginx:dev-kube-ebf94a3a716c8dc59777a095a08191220d654732
         imagePullPolicy: Always
         name: nginx
         readinessProbe:
@@ -52,4 +52,4 @@ spec:
       volumes:
       - name: collected-static
         persistentVolumeClaim:
-          claimName: collected-static-pvolume-claim
+          claimName: hms-collected-static-pvolume-claim

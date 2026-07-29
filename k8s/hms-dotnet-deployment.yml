@@ -22,7 +22,7 @@ spec:
       - envFrom:
           - configMapRef:
               name: hms-config
-        image: ghcr.io/quanted/hms_dotnet:dev-kube
+        image: ghcr.io/quanted/hms:dev-kube-15549977785b126967d670c2773ae0446d89690a
         imagePullPolicy: Always
         name: hms-dotnet
         readinessProbe:
