@@ -6,3 +6,5 @@ mounts/
 .netrc
 .edl_token
 .dodsrc
+
+.env
