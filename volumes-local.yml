@@ -1,0 +1,129 @@
+##################################
+# PVs
+##################################
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: hms-app-data-pvolume
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: default
+    name: hms-app-data-pvolume-claim
+  hostPath:
+    path: ${HMS_PV_LOCAL_PATH}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: hms-collected-static-pvolume
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: default
+    name: hms-collected-static-pvolume-claim
+  hostPath:
+    path: ${HMS_PV_LOCAL_PATH}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: hms-dotnetcore-appdata-pvolume
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: default
+    name: hms-dotnetcore-appdata-pvolume-claim
+  hostPath:
+    path: ${HMS_PV_LOCAL_PATH}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: hms-mongodb-pvolume
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: default
+    name: hms-mongodb-pvolume-claim
+  hostPath:
+    path: ${HMS_PV_LOCAL_PATH}
+---
+##################################
+# PVCs
+##################################
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: hms-app-data-pvolume-claim
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  volumeName: hms-app-data-pvolume
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: hms-collected-static-pvolume-claim
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  volumeName: hms-collected-static-pvolume
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: hms-dotnetcore-appdata-pvolume-claim
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  volumeName: hms-dotnetcore-appdata-pvolume
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: hms-mongodb-pvolume-claim
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  volumeName: hms-mongodb-pvolume
+  resources:
+    requests:
+      storage: 5Gi
