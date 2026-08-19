@@ -18,8 +18,7 @@
     d.  In a Git bash terminal (anything with bash should work, Git bash
         is a common one for Windows), cd to the hms_kube repo.
 
-    e.  Set the environment (Note: "\$" is just there to imply a command
-        and is not a part of the command)
+    e.  Set the environment
 
         source .env
 
