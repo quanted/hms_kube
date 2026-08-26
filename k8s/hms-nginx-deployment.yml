@@ -22,7 +22,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: hms-config
-        image: ghcr.io/quanted/hms-nginx:dev-kube-ebf94a3a716c8dc59777a095a08191220d654732
+        image: ghcr.io/quanted/hms-nginx:dev-kube-f82086e7965ffb85d48aa949ebb0df3f8c03451e
         imagePullPolicy: Always
         name: nginx
         readinessProbe:

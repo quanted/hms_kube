@@ -19,7 +19,7 @@ spec:
         app: hms-mongodb
     spec:
       containers:
-      - image: ghcr.io/quanted/hms-mongo:dev-kube-ebf94a3a716c8dc59777a095a08191220d654732
+      - image: ghcr.io/quanted/hms-mongo:dev-kube-a7c6eb70ca35130130b9e790ee7f85b1e9debe26
         imagePullPolicy: Always
         command: ['mongod', '--bind_ip_all']
         # command:
