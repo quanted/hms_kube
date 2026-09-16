@@ -7,4 +7,4 @@ mounts/
 .edl_token
 .dodsrc
 
-.env
+.env*
