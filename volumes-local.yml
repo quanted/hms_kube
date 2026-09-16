@@ -16,7 +16,7 @@ spec:
     namespace: default
     name: hms-app-data-pvolume-claim
   hostPath:
-    path: ${HMS_PV_LOCAL_PATH}
+    path: ${HMS_PV_LOCAL_PATH}/app_data
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -33,7 +33,7 @@ spec:
     namespace: default
     name: hms-collected-static-pvolume-claim
   hostPath:
-    path: ${HMS_PV_LOCAL_PATH}
+    path: ${HMS_PV_LOCAL_PATH}/collected_static
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -50,7 +50,7 @@ spec:
     namespace: default
     name: hms-dotnetcore-appdata-pvolume-claim
   hostPath:
-    path: ${HMS_PV_LOCAL_PATH}
+    path: ${HMS_PV_LOCAL_PATH}/dotnetcore_appdata
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -67,7 +67,7 @@ spec:
     namespace: default
     name: hms-mongodb-pvolume-claim
   hostPath:
-    path: ${HMS_PV_LOCAL_PATH}
+    path: ${HMS_PV_LOCAL_PATH}/mongodb
 ---
 ##################################
 # PVCs
