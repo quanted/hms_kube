@@ -21,9 +21,9 @@
 
     b.  Add EarthData credentials to .env file.
 
-    c.  Set a path for the volumes.
+    c.  Set the path for the volumes (note everything in this folder is .gitignored and should stay that way).
 
-        /run/desktop/mnt/host/d/hms_volume_data
+        /run/desktop/mnt/host/c/Users/path/to/repo/hms_kube/mounts
 
     d.  In a Git bash terminal (anything with bash should work, Git bash
         is a common one for Windows), cd to the hms_kube repo.
