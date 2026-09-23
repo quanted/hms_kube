@@ -1,7 +1,7 @@
 .idea
 .DS_Store
 
-mounts/
+mounts/*
 
 .netrc
 .edl_token
